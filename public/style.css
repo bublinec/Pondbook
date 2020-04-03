@@ -1,0 +1,30 @@
+.jumbotron{
+    padding: 2.5rem 4rem;
+}
+
+.thumbnail{
+    height: 35vh;
+}
+
+.thumbnail img{
+    height: 65%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.thumbnail h4{
+    margin: 0.5vh 0;
+}
+
+form{
+    width: 35%;
+    margin: 4vh auto;
+}
+
+.form_div{
+    margin: 15vh 0;
+}
+
+.form-group input{
+    margin: 2vh 0;
+}

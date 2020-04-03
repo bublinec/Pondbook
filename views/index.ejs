@@ -1,0 +1,31 @@
+<%- include("partials/header") %> 
+
+<div class="container">
+    <header>
+        <div class="jumbotron">
+            <h1>Ponds</h1>
+            <a href="/"><button class="btn btn-primary">Back</button></a>
+            <a href="/ponds/New"><button class="btn btn-primary">New Pond</button></a>
+        </div>
+    </header>
+
+
+    <div class="row text-center">
+        <% ponds.forEach(function(pond){ %>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= pond.image %>" alt="<%= pond.name %> ">
+                    <div class="caption">
+                        <h4><%= pond.name %></h4>
+                    </div>
+                    <a href="/ponds/<%= pond._id %> " class="btn btn-primary">
+                        Show
+                    </a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+</div>
+
+<%- include("partials/header") %> 

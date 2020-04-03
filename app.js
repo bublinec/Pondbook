@@ -51,7 +51,8 @@ app.post("/ponds", function(req, res){
     // get data from the form
     var name = req.body.name;
     var image = req.body.image;
-    var newPond = {name: name, image:image}; 
+    var description = req.body.description;
+    var newPond = {name: name, image:image, description:description}; 
     // create pond and save it to db
     Pond.create(newPond, function(err, created_pond){
         if(err){
@@ -81,5 +82,3 @@ app.get("/ponds/:id", function(req, res){
         }
     })
 })
-
-

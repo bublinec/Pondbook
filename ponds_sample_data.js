@@ -1,3 +1,5 @@
+
+// Read ponds
 var ponds = [
     {
         name: "Salmon Creek", 
@@ -45,3 +47,7 @@ var ponds = [
         description: "A pond is a small area of still, fresh water. It is different from a river or a stream because it does not have moving water and it differs from a lake because it has a small area and is no more than around 1.8m deep." 
     },
     ]
+
+ponds.forEach(function(pond){
+    Pond.create(pond)
+})

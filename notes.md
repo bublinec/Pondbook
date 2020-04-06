@@ -64,3 +64,14 @@ NEW     ponds/:id/commenss/new          GET
 CREATE  ponds/:id/comments              POST
 
 - I will not preceed accoring to RESTful routing in this case, because I want to display comments form on the SHOW page
+
+## Middlewares
+
+- functions which are run before callbacks
+- we can add app.use(middleware) - to execute it on each route
+
+EX:
+We need to send current user to each template.
+The easy way to do it is a middleware used on each route (app.use())
+
+app.use - whatever function we provide inside will be run on each route

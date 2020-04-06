@@ -1,5 +1,4 @@
 // SETUP
-
 // Require packages:
 const express = require("express"),
       app = express(),
@@ -16,15 +15,26 @@ const Pond = require("./modules/pond"),
 // DB configuration
 mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnifiedTopology: true});
 const seedDB = require("./seeds");
-seedDB();
+// seedDB();
 
 // App configuration
 app.use(express.static("public")); // include as used folder (wtih views)
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs");
 
-// Start server
+// Passport configuration (order matters)
+app.use(require("express-session")({
+    secret: "This is a secret string used for hashing.",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
+// Start server
 const port = 8000; 
 app.listen(port, function(err){
     if(err){
@@ -34,6 +44,24 @@ app.listen(port, function(err){
         console.log("Server listening on the port: ", port);
     }
 })
+
+// pass current_user to each template using middleware function
+app.use(function(req, res, next){
+    // whatever we put to locals is passed to the template
+    res.locals.current_user = req.user;
+    next();
+});
+
+// isLoggedIn middleware
+function isLoggedIn(req, res, next){
+    // if logged in continue to the next function
+    if(req.isAuthenticated()){
+        return next();
+    }
+    // else redirect to login
+    res.redirect("/login");
+}
+
 
 
 // ROUTES
@@ -81,9 +109,7 @@ app.get("/ponds/:id", function(req, res){
         if(err){
             console.log("\nSomething went wrong: \n", err);
         }
-        else{
-            console.log(found_pond);
-        
+        else{        
             // render the show page for that id
             res.render("show", {pond: found_pond});
         }
@@ -91,7 +117,7 @@ app.get("/ponds/:id", function(req, res){
 });
 
 // Comments
-app.post("/ponds/:id/comments", function(req, res){
+app.post("/ponds/:id/comments", isLoggedIn, function(req, res){
     // lookup pond using id from request
     Pond.findById(req.params.id, function(err, found_pond){
         if(err){
@@ -113,4 +139,43 @@ app.post("/ponds/:id/comments", function(req, res){
             }
         })
     })
+})
+
+
+// AUTH ROUTES
+// register form
+app.get("/register", function(req, res){
+    res.render("register")
+})
+
+// register logic
+app.post("/register", function(req, res){
+    newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, created_user){
+        if(err){
+            console.log(err);
+            return res.render("/register")
+        }
+        // if successfully create a user, then login and redirect
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/ponds")
+        });
+    })
+})
+
+// login form
+app.get("/login", function(req, res){
+    res.render("login")
+})
+
+// login lgic
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "ponds",
+    failureRedirect: "login"
+}));
+
+// log out
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/ponds");
 })

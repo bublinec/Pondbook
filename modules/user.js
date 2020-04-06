@@ -1,9 +1,9 @@
 const mongoose = require("mongoose"),
-      passportLocalMongoose = require("passport-lcoal-mongoose"); 
+      passportLocalMongoose = require("passport-local-mongoose"); 
 
-var userSchema = new mongooose.Schema({
-    username = String,
-    passport = String
+var userSchema = new mongoose.Schema({
+    username: String,
+    passport: String
 });
 
 userSchema.plugin(passportLocalMongoose);

@@ -22,10 +22,13 @@
                             <strong><%= comment.author %> </strong>
                         </div>
                         <div class="col-md-11">
-                            <p><%= comment.text %></p>
+                            <p>
+                                <%= comment.text %>
+                                <span id="comment_time" class="pull-right">10 days ago</span>
+                            </p>
                         </div>
                     </div>
-
+                <hr>
                 <% }) %>
 
                 <!-- new comment form -->

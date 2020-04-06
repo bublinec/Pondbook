@@ -4,7 +4,6 @@
     <header>
         <div class="jumbotron">
             <h1>Ponds</h1>
-            <a href="/"><button class="btn btn-primary">Back</button></a>
             <a href="/ponds/New"><button class="btn btn-primary">New Pond</button></a>
         </div>
     </header>
@@ -17,10 +16,10 @@
                     <img src="<%= pond.image %>" alt="<%= pond.name %> ">
                     <div class="caption">
                         <h4><%= pond.name %></h4>
+                        <a href="/ponds/<%= pond._id %> " class="btn btn-primary">
+                            Show
+                        </a>
                     </div>
-                    <a href="/ponds/<%= pond._id %> " class="btn btn-primary">
-                        Show
-                    </a>
                 </div>
             </div>
         <% }) %>

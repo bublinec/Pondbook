@@ -1,5 +1,17 @@
+hr{
+    margin: 10px 0;
+}
+
 .jumbotron{
     padding: 2.5rem 4rem;
+}
+
+.thumbnail{
+    padding: 0;
+}
+
+.thumbnail .caption{
+    padding: 2%;
 }
 
 .thumbnail img{
@@ -31,4 +43,9 @@
 .input_and_button .form-control{
     width: 80%;
     display: inline;
+}
+
+#comment_time{
+    font-size: 0.85em;
+    color: #575555 
 }

@@ -56,7 +56,7 @@ app.use("/ponds", pondRoutes);
 const port = 8000; 
 app.listen(port, function(err){
     if(err){
-        console.log("\nSomething went wrong:\n", err);     
+        console.log(err);     
     }
     else{
         console.log("Server listening on the port: ", port);

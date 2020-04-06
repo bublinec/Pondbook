@@ -1,6 +1,7 @@
 // Dependencies:
 const express = require("express"),
       router = express.Router({mergeParams: true}),
+      Comment = require("../modules/comment"),
       Pond = require("../modules/pond");
 
 
@@ -62,7 +63,7 @@ router.get("/:id", function(req, res){
 });
 
 // pond comments
-router.post(":id/comments", isLoggedIn, function(req, res){
+router.post("/:id/comments", isLoggedIn, function(req, res){
     // lookup pond using id from request
     Pond.findById(req.params.id, function(err, found_pond){
         if(err){

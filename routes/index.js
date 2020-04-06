@@ -1,9 +1,7 @@
 // Dependencies:
 const express = require("express"),
-      router = express.Router({mergeParams: true}),
-      Comment = require("../modules/comment"),
-      Pond = require("../modules/pond");
-
+      router = express.Router({mergeParams: true});
+      
 
 // Landing page
 router.get("/", function(req, res){

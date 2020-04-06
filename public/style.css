@@ -16,13 +16,9 @@
     margin: 0.5vh 0;
 }
 
-form{
-    width: 35%;
-    margin: 4vh auto;
-}
-
 .form_div{
-    margin: 15vh 0;
+    width: 35%;
+    margin: 10vh auto;
 }
 
 .form-group input{

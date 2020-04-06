@@ -14,7 +14,7 @@ const Pond = require("./modules/pond"),
 // DB configuration
 mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnifiedTopology: true});
 const seedDB = require("./seeds");
-// seedDB();
+seedDB();
 
 // App configuration
 app.use(express.static("public")); // include as used folder (wtih views)
@@ -87,3 +87,28 @@ app.get("/ponds/:id", function(req, res){
         }
     });
 });
+
+// Comments
+app.post("/ponds/:id/comments", function(req, res){
+    // lookup pond using id from request
+    Pond.findById(req.params.id, function(err, found_pond){
+        if(err){
+            console.log(err)
+        }
+        Comment.create({
+            text: req.body.comment_text,
+            author: "Homer" // will be the signed user eventually
+        }, function(err, created_comment){
+            if(err){
+                console.log(err);
+            }
+            else{
+                // connect comment to the pond
+                found_pond.comments.push(created_comment);
+                found_pond.save();
+                // redirect to show (to refresh)
+                res.redirect("/ponds/" + req.params.id);
+            }
+        })
+    })
+})

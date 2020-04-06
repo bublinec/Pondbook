@@ -59,3 +59,10 @@ Third  week: Mendix
     * relative path (./ - current dir (where the app.js is) or ../ - one dir up in the tree)
 
 WE OBVIOUSLY CAN'T START WITHOUT /
+
+## Nested routes
+
+NEW     ponds/:id/commenss/new          GET
+CREATE  ponds/:id/comments              POST
+
+- I will not preceed accoring to RESTful routing in this case, because I want to display comments form on the SHOW page

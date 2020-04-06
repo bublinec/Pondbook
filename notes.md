@@ -75,3 +75,22 @@ We need to send current user to each template.
 The easy way to do it is a middleware used on each route (app.use())
 
 app.use - whatever function we provide inside will be run on each route
+
+## Routes
+
+- proper structure adds some lines to our code (require), but in the long term is beneficial to keep it structured
+
+### DRYing I.
+
+- create own directory, split by relations to models, require, use router
+- index.js - for all purpose routes, that aren't related to particular model
+
+- **router** - we create a variable (object?) type Router (instance of router)
+    - and then we are adding all the routes to it (not to the app anymore)
+    - then we need to require it in app.js and use it app.use
+
+### DRYing II.
+- app.use("/ponds", pondRoutes) - appends routes to /pond
+- cleane up (group routes even more) and reduce code
+- do not forget to set mergeParams to ture, otherwise it will not find our route parameters, and so will not pass them to the template
+EX: router = express.Router({mergeParams: true}),

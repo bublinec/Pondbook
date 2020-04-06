@@ -1,16 +1,29 @@
 // SETUP
+
+// Require packages:
 const express = require("express"),
       app = express(),
       bodyParser = require("body-parser"),
-      mongoose = require("mongoose"),
-      port = 8000;
+      mongoose = require("mongoose");
 
+      
+// Require models:
+const Pond = require("./modules/pond"),
+      Comment = require("./modules/comment");
+
+// DB configuration
 mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnifiedTopology: true});
+const seedDB = require("./seeds");
+// seedDB();
+
+// App configuration
 app.use(express.static("public")); // include as used folder (wtih views)
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs");
 
 // Start server
+
+const port = 8000; 
 app.listen(port, function(err){
     if(err){
         console.log("\nSomething went wrong:\n", err);     
@@ -20,16 +33,6 @@ app.listen(port, function(err){
     }
 })
 
-
-// SCHEMA SETUP
-var pondSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-// COMPILE TO A MODEL
-var Pond = mongoose.model("Pond", pondSchema);
 
 // ROUTES
 app.get("/", function(req, res){
@@ -72,13 +75,15 @@ app.get("/ponds/new", function(req, res){
 
 app.get("/ponds/:id", function(req, res){
     // find the pond with provided id
-    Pond.findById(req.params.id, function(err, found_pond){
+    Pond.findById(req.params.id).populate("comments").exec(function(err, found_pond){
         if(err){
             console.log("\nSomething went wrong: \n", err);
         }
         else{
+            console.log(found_pond);
+        
             // render the show page for that id
             res.render("show", {pond: found_pond});
         }
-    })
-})
+    });
+});

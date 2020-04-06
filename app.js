@@ -4,12 +4,14 @@
 const express = require("express"),
       app = express(),
       bodyParser = require("body-parser"),
-      mongoose = require("mongoose");
+      mongoose = require("mongoose"),
+      passport = require("passport"),
+      localStrategy = require("passport-local");
 
-      
 // Require models:
 const Pond = require("./modules/pond"),
-      Comment = require("./modules/comment");
+      Comment = require("./modules/comment"),
+      User = require("./modules/user");
 
 // DB configuration
 mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnifiedTopology: true});

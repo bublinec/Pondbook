@@ -52,9 +52,7 @@ Third  week: Mendix
     EX: 
     const Pond = require("/home/bublinec/Programming/Web/Pondbook/modules/pond");
 
-    We can use following to get the current dir (where the app.js is):
-    // var path = require('path');
-    // console.log(path.resolve( __dirname));
+    * We can use __dirname to get the current dir (where the app.js is)
 
     * relative path (./ - current dir (where the app.js is) or ../ - one dir up in the tree)
 

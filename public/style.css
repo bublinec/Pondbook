@@ -2,17 +2,20 @@
     padding: 2.5rem 4rem;
 }
 
-.thumbnail{
-    height: 35vh;
-}
-
 .thumbnail img{
-    height: 65%;
     width: 100%;
     object-fit: cover;
 }
 
-.thumbnail h4{
+#all_ponds .thumbnail{
+    height: 35vh;
+}
+
+#all_ponds .thumbnail img{
+    height: 65%;
+}
+
+#all_ponds .thumbnail h4{
     margin: 0.5vh 0;
 }
 
@@ -23,4 +26,9 @@
 
 .form-group input{
     margin: 2vh 0;
+}
+
+.input_and_button .form-control{
+    width: 80%;
+    display: inline;
 }

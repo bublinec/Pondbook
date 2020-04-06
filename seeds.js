@@ -90,7 +90,7 @@ function seedDB(){
                                 } else {
                                     pond.comments.push(comment);
                                     pond.save();
-                                    console.log("Created new comment");
+                                    console.log("generated a comment");
                                 }
                             });
                     }

@@ -17,7 +17,12 @@ const authRoutes = require("./routes/auth"),
       indexRoutes = require("./routes/index");
 
 // DB:
-mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost/pondbook",
+{
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
 // const seedDB = require("./seeds");
 // seedDB();
 

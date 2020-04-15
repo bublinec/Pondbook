@@ -1,0 +1,23 @@
+<%- include("../partials/header") %> 
+
+<div class="form_div">
+    <h1 class="text-center">Edit <%= pond.name %> </h1>
+    <form action="/ponds/<%= pond._id %>?_method=PUT" method="post">
+        <div class="from-group">
+            <input class="form-control" type="text" name="pond[name]" value="<%= pond.name %>">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="pond[image]" value="<%= pond.image%>">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="pond[description]" value="<%= pond.description %>">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+        </div>
+    </form>
+</div>
+
+
+
+<%- include("../partials/footer") %> 

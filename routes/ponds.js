@@ -69,9 +69,31 @@ router.get("/:id", function(req, res){
 
 // edit (form)
 router.get("/:id/edit", function(req, res){
-    res.send("EDIT ROUTE")
-})
+    Pond.findById(req.params.id, function(err, foundPond){
+        if(err){
+            res.render("ponds/show");
+        }
+        else{
+            res.render("ponds/edit", {pond: foundPond});
+        }
+    });
+});
+
 // update (where form submits to)
+router.put("/:id", function(req, res){
+    // find and update the pond
+    Pond.findByIdAndUpdate(req.params.id, req.body.pond, function(err, updatedPond){
+        if(err){
+            res.render("ponds/edit", {pond: foundPond});
+        }
+        // redirect to show
+        else{
+            console.log("here");
+            
+            res.redirect(req.params.id);
+        }
+    });
+});
 
 // delete
 

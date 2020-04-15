@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
     passport: String
 });
 
+// add bunch of methods necessary for authentication to userSchema object
 userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);

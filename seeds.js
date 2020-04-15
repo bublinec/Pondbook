@@ -78,24 +78,24 @@ function seedDB(){
                     if(err){
                         console.log(err)
                     } else {
-                        console.log("added a pond");
                         //create a comment
-                        Comment.create(
-                            {
-                                text: "This place is great, but I wish there was internet",
-                                author: "Homer"
-                            }, function(err, comment){
-                                if(err){
-                                    console.log(err);
-                                } else {
-                                    pond.comments.push(comment);
-                                    pond.save();
-                                    console.log("generated a comment");
-                                }
-                            });
+                        // Comment.create(
+                        //     {
+                        //         text: "This place is great, but I wish there was internet",
+                        //         author: "Homer"
+                        //     }, function(err, comment){
+                        //         if(err){
+                        //             console.log(err);
+                        //         } else {
+                        //             pond.comments.push(comment);
+                        //             pond.save();
+                        //             console.log("generated a comment");
+                        //         }
+                        //     });
                     }
                 });
             });
+        console.log("DB seeded");
         });
     }); 
     //add a few comments

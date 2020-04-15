@@ -17,20 +17,6 @@ Therefore we always stick it into the callback!!!
 - we get an error
 - we progress by fixing errors one by one until the code works
 
-# Plan:
-Sun: Comments, Seeding, Authentication
-Mon: Pondbook Authentication, Update + Destroy
-Tue: UI imporvements, Deploying
-Wed: JS tricky stuff, ECMAScript 6
-Thu: Final touch Pondbook, course
-Fri: LinkedIn
-Sat: Prepare Dominik's portfolio
-Sun: -
-Mon: Call Dominik
-First  week: Portfolio
-Second week: Mavi
-Third  week: Mendix
-
 # Why to learn web?
 
 - possibly my work
@@ -45,7 +31,7 @@ Third  week: Mendix
 
 ## Require modules
 
-- when we import installed node_modules, we don't need to care about the path, we just import useing the name of the package
+- when we import installed node_modules, we don't need to care about the path, we just import using the name of the package
 
 - however, when requiring or own modules, we need to specify the path
     * absolute path (/)
@@ -60,7 +46,7 @@ WE OBVIOUSLY CAN'T START WITHOUT /
 
 ## Nested routes
 
-NEW     ponds/:id/commenss/new          GET
+NEW     ponds/:id/comments/new          GET
 CREATE  ponds/:id/comments              POST
 
 - I will not preceed accoring to RESTful routing in this case, because I want to display comments form on the SHOW page
@@ -94,3 +80,10 @@ app.use - whatever function we provide inside will be run on each route
 - cleane up (group routes even more) and reduce code
 - do not forget to set mergeParams to ture, otherwise it will not find our route parameters, and so will not pass them to the template
 EX: router = express.Router({mergeParams: true}),
+
+## Comment user association
+- one:many
+- we will store id and username as author in comment model
+- we could possibly store only id and look up the name everytime
+- but as we look up the username all the time it will be more efficient to store it - possible only in non relational db
+

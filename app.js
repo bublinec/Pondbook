@@ -17,7 +17,7 @@ const authRoutes = require("./routes/auth"),
 
 // DB:
 mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnifiedTopology: true});
-const seedDB = require("./seeds");
+// const seedDB = require("./seeds");
 // seedDB();
 
 // App configuration
@@ -43,7 +43,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
     // whatever is in locals will be passed to the template
     res.locals.current_user = req.user;
-    next();
+    next(); // proceed to the next function
 });
 
 // routes

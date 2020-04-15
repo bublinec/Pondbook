@@ -1,8 +1,8 @@
 // Dependencies:
 const express = require("express"),
-      router = express.Router({mergeParams: true}),
       passport = require("passport"),
-      User = require("../modules/user");
+      User = require("../modules/user"),
+      router = express.Router({mergeParams: true});
 
 
 // register form

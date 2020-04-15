@@ -29,19 +29,24 @@ router.get("/", function(req, res){
 });
 
 // new
-router.get("/new", function(req, res){
+router.get("/new", isLoggedIn, function(req, res){
     res.render("new");
 });
 
 // create
-router.post("/", function(req, res){ 
+router.post("/", isLoggedIn, function(req, res){ 
     // create pond and save it to db
+    pond = req.body.pond;
+    pond.author = {
+        id: req.user._id,
+        username: req.user.username
+    } 
     Pond.create(req.body.pond, function(err, created_pond){
         if(err){
             console.log(err);
         }
         else{
-            console.log(created_pond);
+            console.log("\nCreated pond:\n", created_pond);
             // redirect to ponds page
             res.redirect("/ponds");
         }
@@ -62,7 +67,7 @@ router.get("/:id", function(req, res){
     });
 });
 
-// pond comments
+// pond comments (isLoggedIn - just to make sure)
 router.post("/:id/comments", isLoggedIn, function(req, res){
     // lookup pond using id from request
     Pond.findById(req.params.id, function(err, found_pond){
@@ -71,7 +76,10 @@ router.post("/:id/comments", isLoggedIn, function(req, res){
         }
         Comment.create({
             text: req.body.comment_text,
-            author: "Homer" // will be the signed user eventually
+            author: {
+                id: req.user._id,
+                username: req.user.username
+            }
         }, function(err, created_comment){
             if(err){
                 console.log(err);

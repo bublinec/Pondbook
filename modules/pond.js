@@ -4,6 +4,13 @@ var pondSchema = new mongoose.Schema({
     name: String,
     image: String,
     description: String,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -12,5 +19,4 @@ var pondSchema = new mongoose.Schema({
     ]
 });
 
-// export Pond model
 module.exports = mongoose.model("Pond", pondSchema);

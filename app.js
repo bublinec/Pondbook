@@ -3,7 +3,8 @@ const express = require("express"),
       mongoose = require("mongoose"),
       passport = require("passport"),
       bodyParser = require("body-parser"),
-      localStrategy = require("passport-local");
+      localStrategy = require("passport-local"),
+      methodOverride = require("method-override");
 
 // Models:
 const Pond = require("./modules/pond"),
@@ -24,6 +25,7 @@ mongoose.connect("mongodb://localhost/pondbook", {useNewUrlParser: true, useUnif
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"))
 app.set("view engine", "ejs");
 
 // Passport configuration (order matters)

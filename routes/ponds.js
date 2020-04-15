@@ -15,7 +15,7 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
-
+// PONDS (RESTful routes)
 // index 
 router.get("/", function(req, res){
     Pond.find({}, function(err, all_ponds){
@@ -23,14 +23,14 @@ router.get("/", function(req, res){
             console.log(err);
         }
         else{
-            res.render("index", {ponds: all_ponds});
+            res.render("ponds/index", {ponds: all_ponds});
         }
     });
 });
 
 // new
 router.get("/new", isLoggedIn, function(req, res){
-    res.render("new");
+    res.render("ponds/new");
 });
 
 // create
@@ -62,12 +62,20 @@ router.get("/:id", function(req, res){
         }
         else{        
             // render the show page for that id
-            res.render("show", {pond: found_pond});
+            res.render("ponds/show", {pond: found_pond});
         }
     });
 });
 
-// pond comments (isLoggedIn - just to make sure)
+// edit (form)
+router.get("/:id/edit", function(req, res){
+    res.send("EDIT ROUTE")
+})
+// update (where form submits to)
+
+// delete
+
+// COMMETNS
 router.post("/:id/comments", isLoggedIn, function(req, res){
     // lookup pond using id from request
     Pond.findById(req.params.id, function(err, found_pond){

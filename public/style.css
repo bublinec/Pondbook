@@ -42,6 +42,9 @@ hr{
 
 .input_and_button .form-control{
     width: 80%;
+}
+
+.inline{
     display: inline;
 }
 

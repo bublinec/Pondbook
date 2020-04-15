@@ -95,7 +95,18 @@ router.put("/:id", function(req, res){
     });
 });
 
-// delete
+// destroy
+router.delete("/:id", function(req, res){
+    Pond.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.render("ponds/show");
+        }
+        else{
+            res.redirect("/ponds");
+        }
+    })
+})
+
 
 // COMMETNS
 router.post("/:id/comments", isLoggedIn, function(req, res){

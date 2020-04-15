@@ -97,11 +97,22 @@ router.put("/:id", function(req, res){
 
 // destroy
 router.delete("/:id", function(req, res){
-    Pond.findByIdAndRemove(req.params.id, function(err){
+    Pond.findById(req.params.id, function(err, foundPond){
         if(err){
             res.render("ponds/show");
         }
         else{
+            // remove all comments 
+            foundPond.comments.forEach(function(comment){
+                Comment.findByIdAndRemove(comment, function(err, removedComment){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            });
+            // remove the pond itself
+            foundPond.remove();
+            // redirect to index
             res.redirect("/ponds");
         }
     })

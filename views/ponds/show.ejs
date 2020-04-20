@@ -10,10 +10,13 @@
                     <h2><%= pond.name %></h2>
                     <p>Author: <strong><%= pond.author.username %></strong> </p>
                     <p><%= pond.description %> </p>
-                    <a class="btn btn-warning" href="/ponds/<%= pond._id %>/edit">Edit</a>
-                    <form class="inline" action="/ponds/<%= pond._id %>?_method=DELETE" method="post">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                    <!-- there is anyone signed in AND his id is the same as pond it - show buttons -->
+                    <% if(current_user && pond.author.id.equals(current_user._id)){ %> 
+                        <a class="btn btn-xs btn-warning" href="/ponds/<%= pond._id %>/edit">Edit</a>
+                        <form class="inline" action="/ponds/<%= pond._id %>?_method=DELETE" method="post">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% } %> 
                 </div>
             </div>
             <div class="well">

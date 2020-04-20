@@ -15,6 +15,26 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
+function isAuthorized(req, res, next){
+    Pond.findById(req.params.id, function(err, foundPond){
+        if(err){
+            res.redirect("back");
+        }
+        else{
+            // if current user owns the pond continue to next
+            if(foundPond.author.id.equals(req.user._id)){
+                next();
+            }
+            // else redirect back
+            else{
+                res.redirect("back");
+            }
+        }
+    });
+
+
+}
+
 // PONDS (RESTful routes)
 // index 
 router.get("/", function(req, res){
@@ -68,7 +88,7 @@ router.get("/:id", function(req, res){
 });
 
 // edit (form)
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", isLoggedIn, isAuthorized, function(req, res){
     Pond.findById(req.params.id, function(err, foundPond){
         if(err){
             res.render("ponds/show");
@@ -80,7 +100,7 @@ router.get("/:id/edit", function(req, res){
 });
 
 // update (where form submits to)
-router.put("/:id", function(req, res){
+router.put("/:id", isLoggedIn, isAuthorized, function(req, res){
     // find and update the pond
     Pond.findByIdAndUpdate(req.params.id, req.body.pond, function(err, updatedPond){
         if(err){
@@ -96,7 +116,7 @@ router.put("/:id", function(req, res){
 });
 
 // destroy
-router.delete("/:id", function(req, res){
+router.delete("/:id", isLoggedIn, isAuthorized, function(req, res){
     Pond.findById(req.params.id, function(err, foundPond){
         if(err){
             res.render("ponds/show");

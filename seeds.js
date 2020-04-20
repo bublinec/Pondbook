@@ -64,13 +64,12 @@ function seedDB(){
    //Remove all ponds
    Pond.deleteMany({}, function(err){
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
         }
         console.log("removed ponds!");
         Comment.deleteMany({}, function(err) {
             if(err){
-                console.log(err);
-            }
+                }
             console.log("removed comments!");
              //add a few ponds
             data.forEach(function(seed){
@@ -85,8 +84,7 @@ function seedDB(){
                         //         author: "Homer"
                         //     }, function(err, comment){
                         //         if(err){
-                        //             console.log(err);
-                        //         } else {
+                        //                         //         } else {
                         //             pond.comments.push(comment);
                         //             pond.save();
                         //             console.log("generated a comment");

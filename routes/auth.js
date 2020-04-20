@@ -15,11 +15,12 @@ router.post("/register", function(req, res){
     newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, created_user){
         if(err){
-            console.log(err);
-            return res.render("/register");
+            req.flash("error", err.message);
+            res.redirect("back");
         }
         // if successfully create a user, then login and redirect
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Welcome to Pondbook " + req.body.username + "!")
             res.redirect("/ponds");
         });
     });
@@ -39,6 +40,7 @@ router.post("/login", passport.authenticate("local", {
 // log out
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "See you later!")
     res.redirect("/ponds");
 });
 

@@ -116,3 +116,9 @@ can be clearer and shorter codeA
 
 - IN OTHER WORDS - flash gives us a (str) variable only for the next req obj
 - this variable is by default an empty array (useful for if)
+- err object from mongoose/passport contains an object - we display only err.message
+
+# MODERNIZER
+- check the browser for the type and version
+- chenges unsupported css to supported
+- makes page more cross browser compatible FOR FREE!!!

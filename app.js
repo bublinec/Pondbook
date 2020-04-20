@@ -14,7 +14,8 @@ const Pond = require("./modules/pond"),
 // Routes:
 const authRoutes = require("./routes/auth"),
       pondRoutes = require("./routes/ponds"),
-      indexRoutes = require("./routes/index");
+      indexRoutes = require("./routes/index"),
+      commentRoutes = require("./routes/comments");
 
 // DB:
 mongoose.connect("mongodb://localhost/pondbook",
@@ -57,6 +58,7 @@ app.use(function(req, res, next){
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/ponds", pondRoutes);
+app.use("/ponds/:id/comments", commentRoutes);
 
 
 // Start server

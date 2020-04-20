@@ -52,3 +52,9 @@ hr{
     font-size: 0.85em;
     color: #575555 
 }
+
+.hide{
+    display: none;
+}
+
+

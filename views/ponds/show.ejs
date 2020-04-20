@@ -26,12 +26,45 @@
                         <div class="col-md-1">
                             <strong><%= comment.author.username %> </strong>
                         </div>
-                        <div class="col-md-11">
-                            <p>
-                                <%= comment.text %>
-                                <span id="comment_time" class="pull-right">10 days ago</span>
-                            </p>
+
+                        <!-- comment show -->
+                        <div class="comment_show">
+                            <div class="col-md-9">
+                                <p>
+                                    <%= comment.text %>
+                                    <span id="comment_time" class="pull-right">10 days ago</span>
+                                </p>
+                            </div>
+
+                            <div class="col-md-1">
+                                <button class="btn btn-sm btn-warning"  id="edit_btn">
+                                    Edit
+                                </button>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-sm btn-danger">
+                                    Del
+                                </button>
+                            </div>
                         </div>
+
+                        <!-- comment edit (default display:none) - toggleto block on click -->
+                        <div class="comment_edit hide">
+                            <div class="col-md-9">
+                                <input class="form-control inline" id="comment_input" type="text" name="comment_text" placeholder="Add comment">
+                            </div>
+                            <div class="col-md-1">
+                                <input class="btn btn-sm btn-success" type="submit" value="Save">
+                            </div>
+
+                            <div class="col-md-1">
+                                <button class="btn btn-sm btn-warning">
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+
+
                     </div>
                 <hr>
                 <% }) %>
@@ -43,10 +76,11 @@
                             <div class="col-md-1">
                                 <label><%= current_user.username %> </label>
                             </div>
-                            <div class="col-md-11">
-                            <div class="input_and_button">
+                            <div class="col-md-10">
                                 <input class="form-control inline" id="comment_input" type="text" name="comment_text" placeholder="Add comment">
-                                <input class="btn btn-success" type="submit" value="Submit">
+                            </div>
+                            <div class="col-md-1">
+                                <input class="btn btn-sm btn-success" type="submit" value="Add">
                             </div>
                         </div>    
                     </form>

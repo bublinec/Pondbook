@@ -33,8 +33,8 @@ function isAuthorized(req, res, next){
     });
 }
 
-
-// new - we don't need as the form is displayed on the pond show route
+// COMMENT (RESTful routes)
+// new - we don't need as the form is displayed on the pond show page
 
 // create
 router.post("/", isLoggedIn, function(req, res){
@@ -64,7 +64,7 @@ router.post("/", isLoggedIn, function(req, res){
     });
 });
 
-// edit
+// edit - we don't need as the edit form is displayed on the pond show page
 
 // update
 

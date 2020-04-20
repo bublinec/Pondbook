@@ -96,3 +96,23 @@ Authorization - if you are permitted to do some action
 - the second part is not checked if the first is falsy =>
 can be clearer and shorter codeA
 
+## When we require dir, we get index.js in that dir 
+- EX require("expres") is a dir and there is index.js with import
+
+# REACT
+- js library for building web interfaces 
+- snippets of code - html + css + js
+
+# ANGULAR
+- js framework for building one page web apps
+
+## Flahs messges
+- special event-driven messages )(error handling, succes etc.)
+- node packages for it e.g. connect-flash
+- flash message is assigned to the request
+- we send it to the tepmlate in that roud as flash error/succes/anything message
+- this flash message is displayed only if it contains anything
+- this message is removed after the next req (lasts only for one)
+
+- IN OTHER WORDS - flash gives us a (str) variable only for the next req obj
+- this variable is by default an empty array (useful for if)

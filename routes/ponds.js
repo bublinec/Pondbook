@@ -2,43 +2,17 @@
 const express = require("express"),
       router = express.Router({mergeParams: true}),
       Comment = require("../modules/comment"),
-      Pond = require("../modules/pond");
+      Pond = require("../modules/pond"),
+      middleware = require("../middleware");
 
 
-// Functions:
-function isLoggedIn(req, res, next){
-    // if logged in continue to the next function
-    if(req.isAuthenticated()){
-        return next();
-    }
-    // else redirect to login
-    res.redirect("/login");
-}
-
-function isAuthorized(req, res, next){
-    Pond.findById(req.params.id, function(err, foundPond){
-        if(err){
-            res.redirect("back");
-        }
-        else{
-            // if current user owns the pond continue to next
-            if(foundPond.author.id.equals(req.user._id)){
-                next();
-            }
-            // else redirect back
-            else{
-                res.redirect("back");
-            }
-        }
-    });
-}
-
-// PONDS (RESTful routes)
 // index 
 router.get("/", function(req, res){
     Pond.find({}, function(err, all_ponds){
         if(err){
+            req.flash("error", "Something went wrong!");
             console.log(err);
+            res.render("ponds/show");
         }
         else{
             res.render("ponds/index", {ponds: all_ponds});
@@ -47,12 +21,12 @@ router.get("/", function(req, res){
 });
 
 // new
-router.get("/new", isLoggedIn, function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("ponds/new");
 });
 
 // create
-router.post("/", isLoggedIn, function(req, res){ 
+router.post("/", middleware.isLoggedIn, function(req, res){ 
     // create pond and save it to db
     pond = req.body.pond;
     pond.author = {
@@ -62,6 +36,8 @@ router.post("/", isLoggedIn, function(req, res){
     Pond.create(req.body.pond, function(err, created_pond){
         if(err){
             console.log(err);
+            req.flash("error", "Something went wrong!");
+            res.redirect("back");
         }
         else{
             console.log("\nCreated pond:\n", created_pond);
@@ -77,6 +53,8 @@ router.get("/:id", function(req, res){
     Pond.findById(req.params.id).populate("comments").exec(function(err, found_pond){
         if(err){
             console.log(err);
+            req.flash("error", "Something went wrong!");
+            res.redirect("back");
         }
         else{        
             // render the show page for that id
@@ -86,10 +64,12 @@ router.get("/:id", function(req, res){
 });
 
 // edit (form)
-router.get("/:id/edit", isLoggedIn, isAuthorized, function(req, res){
+router.get("/:id/edit", middleware.isLoggedIn, middleware.isAuthorized, function(req, res){
     Pond.findById(req.params.id, function(err, foundPond){
         if(err){
-            res.render("ponds/show");
+            console.log(err);
+            req.flash("error", "Something went wrong!");
+            res.redirect("back");
         }
         else{
             res.render("ponds/edit", {pond: foundPond});
@@ -98,11 +78,13 @@ router.get("/:id/edit", isLoggedIn, isAuthorized, function(req, res){
 });
 
 // update (where form submits to)
-router.put("/:id", isLoggedIn, isAuthorized, function(req, res){
+router.put("/:id", middleware.isLoggedIn, middleware.isAuthorized, function(req, res){
     // find and update the pond
     Pond.findByIdAndUpdate(req.params.id, req.body.pond, function(err, updatedPond){
         if(err){
-            res.render("ponds/edit", {pond: foundPond});
+            console.log(err);
+            req.flash("error", "Something went wrong!");
+            res.redirect("back");
         }
         // redirect to show
         else{
@@ -114,10 +96,12 @@ router.put("/:id", isLoggedIn, isAuthorized, function(req, res){
 });
 
 // destroy
-router.delete("/:id", isLoggedIn, isAuthorized, function(req, res){
+router.delete("/:id", middleware.isLoggedIn, middleware.isAuthorized, function(req, res){
     Pond.findById(req.params.id, function(err, foundPond){
         if(err){
-            res.render("ponds/show");
+            console.log(err);
+            req.flash("error", "Something went wrong!");
+            res.redirect("back");
         }
         else{
             // remove all comments 
@@ -125,6 +109,8 @@ router.delete("/:id", isLoggedIn, isAuthorized, function(req, res){
                 Comment.findByIdAndRemove(comment, function(err, removedComment){
                     if(err){
                         console.log(err);
+                        req.flash("error", "Something went wrong!");
+                        res.redirect("back");
                     }
                 });
             });

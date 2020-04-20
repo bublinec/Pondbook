@@ -87,3 +87,12 @@ EX: router = express.Router({mergeParams: true}),
 - we could possibly store only id and look up the name everytime
 - but as we look up the username all the time it will be more efficient to store it - possible only in non relational db
 
+## Autentification vs Authorization
+
+Authentification - checking if you are who you say you are
+Authorization - if you are permitted to do some action
+
+## DON'T FORGET THE SHORT CIRCUIT IN && STATEMENT
+- the second part is not checked if the first is falsy =>
+can be clearer and shorter codeA
+

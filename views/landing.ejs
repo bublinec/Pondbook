@@ -1,8 +1,44 @@
-<%- include("partials/header") %> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/landing.css">
+    <script src="/scripts/front.js"></script>
+    <!-- modernizer - cross browser compatibility for free -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" integrity="sha256-0rguYS0qgS6L4qVzANq4kjxPLtvnp5nn2nB5G1lWRv4=" crossorigin="anonymous"></script>
+    <title>Pondbook</title>
+</head>
+<body>
 
-<h1>Pondbook</h1>
-<p>Welcome to a networking website for garden ponds enthusiastics!</p>
-<a href="/ponds"><button>See Ponds!</button></a>
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+    </div>
 
+    <div id="landing-header">
+        <h1>Welcome to Pondbook!</h1>
+        <p>Social networking site for garden ponds enthusiasts</p>
+        <a href="/ponds" class="btn btn-lg btn-success">View All Ponds</a>
+    </div>
+
+    <ul class="slideshow">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
 
 <%- include("partials/footer") %> 
